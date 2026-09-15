@@ -1,0 +1,16 @@
+{
+  "name": "lornshill-timetable-android-app",
+  "version": "1.0.0",
+  "description": "Lornshill Timetable Companion Android App with Instant PC Preview",
+  "scripts": {
+    "start": "npx serve preview",
+    "preview": "start preview/index.html"
+  },
+  "keywords": [
+    "android",
+    "jetpack-compose",
+    "preview"
+  ],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LHill Timetable</string>
+    <string name="next_period">Next Period</string>
+    <string name="now">NOW</string>
+    <string name="today">Today</string>
+    <string name="add_timetable">+ Add Timetable</string>
+    <string name="view_full_timetable">View full timetable →</string>
+</resources>

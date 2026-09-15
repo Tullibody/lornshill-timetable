@@ -1,0 +1,15 @@
+{
+  "latestVersionCode": 1,
+  "latestVersionName": "1.0",
+  "apkUrl": "https://github.com/your-username/lornshill-timetable/releases/download/v1.0/LornshillTimetable.apk",
+  "whatsNew": "Added APK update system and remote in-app notices.\nImproved timetable editor, teacher lookup, and performance.\nFixed several minor period display bugs.",
+  "notifications": [
+    {
+      "id": "notice-001",
+      "enabled": true,
+      "title": "Welcome to Lornshill Timetable",
+      "message": "Welcome to Lornshill Timetable!\n\nYour app will now automatically check for updates and important school announcements. Please verify your period times and teacher assignments in the Timetable tab.",
+      "buttonText": "Got It"
+    }
+  ]
+}
