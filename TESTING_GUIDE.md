@@ -83,6 +83,33 @@ You can test the spreadsheet integration directly in both the **PC Browser Previ
 
 ---
 
+## 🔔 How to Test APK Update System & Remote In-App Notices
+
+The app includes a built-in Developer Panel with full diagnostic readouts and manual trigger controls:
+
+### Step-by-Step QA Workflow:
+1. **Access Dev Panel**: Go to the **Settings** tab, scroll to the bottom, tap **Developer Panel**, and enter passcode:
+   ```
+   dev1
+   ```
+2. **Review Live Diagnostics**:
+   - **Installed Version**: Shows your running build (`versionCode: 1`, `versionName: 1.0`).
+   - **Remote Version**: Shows the latest fetched remote version (e.g. `versionCode: 2`, `versionName: 1.2.0`).
+   - **Update Detected?**: Green badge (`UPDATE AVAILABLE`) if remote code > local code.
+   - **Cooldown Status**: Shows whether the 7-day weekly suppression is active and time remaining.
+   - **Dismissed Notices Count**: Tracks dismissed notifications.
+3. **Test Interactive Previews**:
+   - Tap **"Preview Update Dialog"** to view the What's New alert and verify that the "Update Now" action works.
+   - Tap **"Preview In-App Notice"** to verify text wrapping, scrolling for long notices, and the custom action button.
+4. **Test Cooldown Logic**:
+   - When the update dialog appears, tap **"Dismiss"**. Notice that the Dev Panel now marks cooldown as active for 7 days.
+   - Tap **"Check Now"** — the prompt is suppressed due to cooldown.
+   - Tap **"Clear Cooldown"** — cooldown is reset and the prompt can appear again.
+5. **Test Custom Config Endpoint**:
+   - In the Dev Panel, you can type or paste any custom JSON endpoint into the **"Custom Config URL"** field and tap **"Save & Fetch Now"**.
+
+---
+
 ## 🌐 Method 5: For Future Projects: React Native / Expo (The Ultimate Hot-Reload Setup)
 
 If in the future you want a workflow where:
