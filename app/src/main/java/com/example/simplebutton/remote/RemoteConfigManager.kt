@@ -102,9 +102,9 @@ object RemoteConfigManager {
     fun getInstalledVersionName(context: Context): String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            packageInfo.versionName ?: "1.0"
+            packageInfo.versionName ?: "0.5"
         } catch (_: Exception) {
-            "1.0"
+            "0.5"
         }
     }
 
