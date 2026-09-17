@@ -44,8 +44,8 @@ object RemoteConfigManager {
     // 7 days weekly cooldown in milliseconds
     const val COOLDOWN_7_DAYS_MILLIS = 7L * 24L * 60L * 60L * 1000L
 
-    // Default remote configuration URL (hosted live test configuration)
-    const val DEFAULT_CONFIG_URL = "https://paste.rs/byMiC"
+    // Default remote configuration URL (hosted on your GitHub repository)
+    const val DEFAULT_CONFIG_URL = "https://raw.githubusercontent.com/Tullibody/lornshill-timetable/main/app-config.json"
 
     // Observable Compose States
     val isChecking = mutableStateOf(false)

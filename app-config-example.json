@@ -1,7 +1,7 @@
 {
   "latestVersionCode": 2,
   "latestVersionName": "1.2.0",
-  "apkUrl": "https://github.com/your-username/your-repo/releases/download/v1.2.0/LornshillTimetable.apk",
+  "apkUrl": "https://github.com/Tullibody/lornshill-timetable/releases/download/v1.2.0/LornshillTimetable.apk",
   "whatsNew": "Added APK update system and remote in-app notices.\nImproved timetable editor, teacher lookup, and performance.\nFixed several minor period display bugs.",
   "notifications": [
     {
@@ -10,7 +10,7 @@
       "title": "Welcome to Version 1.2.0",
       "message": "Welcome to the new update of Lornshill Timetable!\n\nYour app will now automatically check for updates and important school announcements. Please verify your period times and teacher assignments in the Timetable tab.",
       "buttonText": "Got It",
-      "actionUrl": "https://github.com/your-username/your-repo",
+      "actionUrl": "https://github.com/Tullibody/lornshill-timetable",
       "actionText": "Visit Project Page",
       "expiresAt": "2027-01-01T00:00:00Z"
     }
