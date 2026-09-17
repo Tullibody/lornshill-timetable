@@ -65,6 +65,7 @@ import android.widget.Toast
 import com.example.simplebutton.model.FacultyDatabase
 import com.example.simplebutton.model.GoogleSheetsFacultyReader
 import com.example.simplebutton.model.SheetSyncResult
+import com.example.simplebutton.remote.RemoteConfigManager
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -725,8 +726,9 @@ fun SettingsScreen(
                             color = colors.textPrimary
                         )
                         Spacer(modifier = Modifier.height(4.dp))
+                        val installedVersion = remember { RemoteConfigManager.getInstalledVersionName(context) }
                         Text(
-                            text = "Version 1.2.0 · Scottish Secondary School Companion",
+                            text = "Version $installedVersion · Scottish Secondary School Companion",
                             fontFamily = Lexend,
                             fontSize = 12.5.sp,
                             color = colors.textSecondary
