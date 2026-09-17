@@ -505,8 +505,8 @@ fun DevPanelScreen(
                             OutlinedButton(
                                 onClick = {
                                     previewUpdateInfo = remoteUpdate ?: AppUpdateInfo(
-                                        latestVersionCode = 12,
-                                        latestVersionName = "1.2.0",
+                                        latestVersionCode = 2,
+                                        latestVersionName = "0.6",
                                         apkUrl = "https://example.com/LornshillTimetable.apk",
                                         whatsNew = "Added timetable notifications, improved the timetable editor and fixed several bugs."
                                     )
