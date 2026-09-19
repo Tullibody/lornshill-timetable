@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.simplebutton"
+    namespace = "com.example.simplebutton.wear"
     compileSdk = 35
 
     defaultConfig {
@@ -42,18 +42,30 @@ android {
 
 dependencies {
     implementation(project(":shared"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+
+    // Wear OS Jetpack Compose
+    implementation(libs.wear.compose.material)
+    implementation(libs.wear.compose.foundation)
+    implementation(libs.wear.compose.navigation)
+    implementation(libs.androidx.wear)
+
+    // Wear OS Tiles & ProtoLayout
+    implementation(libs.wear.tiles)
+    implementation(libs.wear.tiles.material)
+    implementation(libs.wear.protolayout)
+    implementation(libs.wear.protolayout.material)
+    implementation(libs.wear.protolayout.expression)
+
+    // Google Play Services Wearable
     implementation(libs.play.services.wearable)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
+    implementation("com.google.guava:guava:33.2.1-android")
+    implementation("androidx.concurrent:concurrent-futures:1.2.0")
 
-    debugImplementation(libs.androidx.ui.tooling)
     testImplementation(project(":shared"))
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")

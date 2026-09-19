@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lornshill Timetable</string>
+    <string name="tile_name">Timetable</string>
+    <string name="tile_description">Quick view of your current and next class at Lornshill Academy</string>
+</resources>

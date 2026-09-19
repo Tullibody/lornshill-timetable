@@ -45,6 +45,14 @@ The app is distributed as a standalone APK (without Google Play Services or Play
 - Built-in 53-teacher roster across 7 faculties (Creative Arts, Design & Technology, Languages, Maths, P.E, Science, Social Subjects).
 - 1-Tap "Sync Now from Google Sheet" and auto-sync on startup.
 
+### 6. Wear OS Smartwatch Companion & Standalone App (`:wear`)
+- **Optimised Circular / Squircle UI**: Built with Jetpack Compose for Wear OS, featuring curved `ScalingLazyColumn`, `TimeText`, `PositionIndicator`, and deep OLED black contrast.
+- **Glanceable Now / Up Next Hero**: Real-time period status, room number badge, teacher name, and countdown to next bell right on your wrist.
+- **Bi-Directional Phone Sync**: Automatically updates from the mobile app via Google Play Services Wearable Data Layer (`DataClient` + `MessageClient`). Includes a dedicated **Wear OS Watch Sync** status card in the phone's Settings tab.
+- **Wrist Remote Actions**: 1-tap "Sync with Phone" and "Open Timetable Editor on Phone" directly from the watch.
+- **Wear OS Glanceable Tile (`LornshillTileService`)**: Swipe from the watchface to see current class and room information instantly without launching the app.
+- **100% Standalone Offline Capable**: Built-in school year presets (S1, S2, S3+, Jayden) and local `SharedPreferences` storage allow the watch to operate independently even without a phone.
+
 ---
 
 ## Ready-to-Install Built APKs
@@ -53,9 +61,10 @@ The app has been compiled and is ready for immediate testing or distribution:
 
 | APK File | Location | Description |
 | :--- | :--- | :--- |
-| **`LornshillTimetable.apk`** | Project Root (`./LornshillTimetable.apk`) | Standalone Release APK with Proguard optimizations & debug signing |
-| **`LornshillTimetable-release.apk`** | Project Root & `app/build/outputs/apk/release/` | Identical release package |
-| **`LornshillTimetable-debug.apk`** | Project Root & `app/build/outputs/apk/debug/` | Debug APK with logging and debug symbols |
+| **`LornshillTimetable.apk`** | Project Root (`./LornshillTimetable.apk`) | Mobile Phone Standalone Release APK |
+| **`LornshillWearOS.apk`** | Project Root (`./LornshillWearOS.apk`) | Wear OS Smartwatch Companion & Standalone Release APK |
+| **`wear-debug.apk`** | `wear/build/outputs/apk/debug/` | Wear OS Debug APK for emulator or watch sideloading |
+| **`app-debug.apk`** | `app/build/outputs/apk/debug/` | Mobile Phone Debug APK with logging & dev panel |
 
 ---
 

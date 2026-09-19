@@ -81,6 +81,7 @@ import com.example.simplebutton.ui.theme.LornshillNavy
 import com.example.simplebutton.ui.theme.LornshillTextMuted
 import com.example.simplebutton.ui.theme.LornshillTheme
 import com.example.simplebutton.ui.theme.appColors
+import com.example.simplebutton.wear.MobileWearableSyncManager
 import kotlinx.coroutines.delay
 import java.time.DayOfWeek
 
@@ -95,10 +96,15 @@ enum class AppTab(val label: String, val icon: ImageVector) {
 
 class MainActivity : ComponentActivity() {
 
+    companion object {
+        const val EXTRA_TARGET_TAB = "EXTRA_TARGET_TAB"
+    }
+
     private lateinit var repository: TimetableRepository
     private val showNotificationPopup = mutableStateOf(false)
     private val notificationPopupSubject = mutableStateOf<String?>(null)
     private val notificationPopupTeacher = mutableStateOf<String?>(null)
+    val requestedTab = mutableStateOf<AppTab?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,6 +127,12 @@ class MainActivity : ComponentActivity() {
         // Asynchronously check for remote APK update and in-app notices
         lifecycleScope.launch {
             RemoteConfigManager.fetchAndCheck(applicationContext)
+        }
+
+        // Background check for connected Wear OS watches & push latest timetable
+        lifecycleScope.launch {
+            MobileWearableSyncManager.refreshConnectedWatches(applicationContext)
+            MobileWearableSyncManager.syncTimetableToWatches(applicationContext, repository)
         }
 
         // Schedule background notifications only if notifications are enabled
@@ -184,6 +196,14 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun checkNotificationIntent(intent: Intent?) {
+        val targetTabName = intent?.getStringExtra(EXTRA_TARGET_TAB)
+        if (!targetTabName.isNullOrBlank()) {
+            try {
+                requestedTab.value = AppTab.valueOf(targetTabName)
+            } catch (_: Exception) {}
+            intent.removeExtra(EXTRA_TARGET_TAB)
+        }
+
         if (intent?.getBooleanExtra(EXTRA_SHOW_NOTIFICATION_POPUP, false) == true) {
             notificationPopupSubject.value = intent.getStringExtra(TimetableNotificationReceiver.EXTRA_SUBJECT)
             notificationPopupTeacher.value = intent.getStringExtra(TimetableNotificationReceiver.EXTRA_TEACHER)
@@ -243,6 +263,14 @@ fun MainAppContainer(
     var showPermissionRationale by remember { mutableStateOf(false) }
     var showOnboardingTour by remember { mutableStateOf(false) }
     var tourStep by remember { mutableStateOf(TourStep.VIEW_FULL) }
+
+    val requestedTab by activity.requestedTab
+    LaunchedEffect(requestedTab) {
+        if (requestedTab != null) {
+            currentTab = requestedTab!!
+            activity.requestedTab.value = null
+        }
+    }
 
     // Check actual initial permission status and saved repository preference
     val hasSystemPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -386,6 +414,7 @@ fun MainAppContainer(
                         onDismissPermissionRationale = { showPermissionRationale = false },
                         onDeleteAllData = {
                             repository.deleteAllData(activity)
+                            MobileWearableSyncManager.syncAsync(activity, repository)
                             currentTab = AppTab.HOME
                             Toast.makeText(activity, "All data deleted", Toast.LENGTH_SHORT).show()
                         },
@@ -409,11 +438,13 @@ fun MainAppContainer(
                     onSave = { updated ->
                         repository.addOrUpdatePeriod(updated)
                         TimetableNotificationScheduler.scheduleAll(activity, repository)
+                        MobileWearableSyncManager.syncAsync(activity, repository)
                         editingPeriod = null
                     },
                     onClear = {
                         repository.deletePeriod(editingPeriod!!.id)
                         TimetableNotificationScheduler.scheduleAll(activity, repository)
+                        MobileWearableSyncManager.syncAsync(activity, repository)
                         editingPeriod = null
                     }
                 )
@@ -471,6 +502,7 @@ fun MainAppContainer(
                     onFinishOnboarding = { newProfile ->
                         repository.saveUserProfile(newProfile)
                         TimetableNotificationScheduler.scheduleAll(activity, repository)
+                        MobileWearableSyncManager.syncAsync(activity, repository)
                         currentTab = AppTab.HOME
                         tourStep = TourStep.VIEW_FULL
                         showOnboardingTour = true

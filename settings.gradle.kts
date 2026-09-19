@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "SimpleButtonApp"
 include(":app")
+include(":shared")
+include(":wear")

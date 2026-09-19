@@ -1,14 +1,14 @@
 {
-  "latestVersionCode": 1,
-  "latestVersionName": "0.5",
+  "latestVersionCode": 2,
+  "latestVersionName": "0.6",
   "apkUrl": "https://github.com/Tullibody/lornshill-timetable/releases/latest/download/LornshillTimetable.apk",
-  "whatsNew": "Added APK update system and remote in-app notices.\nImproved timetable editor, teacher lookup, and performance.\nFixed several minor period display bugs.",
+  "whatsNew": "• Wear OS Smartwatch Companion App support!\n• Bi-directional timetable sync between watch and phone.\n• Glanceable Wear OS Tile for current and upcoming periods.\n• Performance improvements and bug fixes.",
   "notifications": [
     {
-      "id": "notice-001",
+      "id": "notice-002",
       "enabled": true,
-      "title": "Welcome to Lornshill Timetable",
-      "message": "Welcome to Lornshill Timetable!\n\nYour app will now automatically check for updates and important school announcements. Please verify your period times and teacher assignments in the Timetable tab.",
+      "title": "Welcome to Version 0.6",
+      "message": "Welcome to Lornshill Timetable v0.6!\n\nThis update introduces full Wear OS Smartwatch companion support, automatic watch syncing, and timetable improvements.",
       "buttonText": "Got It"
     }
   ]

@@ -66,6 +66,10 @@ import com.example.simplebutton.model.FacultyDatabase
 import com.example.simplebutton.model.GoogleSheetsFacultyReader
 import com.example.simplebutton.model.SheetSyncResult
 import com.example.simplebutton.remote.RemoteConfigManager
+import com.example.simplebutton.wear.MobileWearableSyncManager
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -478,6 +482,113 @@ fun SettingsScreen(
                             tintColor = Color(0xFFDC2626),
                             onClick = { showDeleteAllConfirm = true }
                         )
+                    }
+                }
+            }
+
+            // Wear OS Watch Sync Section
+            SettingsSection(title = "WEAR OS WATCH SYNC") {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.cardColors(containerColor = colors.cardBg),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(18.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(42.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(colors.accentCobalt.copy(alpha = 0.12f)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = "⌚",
+                                    fontSize = 20.sp
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(14.dp))
+                            Column {
+                                Text(
+                                    text = "Lornshill Watch Sync",
+                                    fontFamily = Lexend,
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = colors.textPrimary
+                                )
+                                Spacer(modifier = Modifier.height(2.dp))
+                                val watchCount = MobileWearableSyncManager.connectedWatchCount.intValue
+                                val statusText = if (watchCount > 0) {
+                                    val names = MobileWearableSyncManager.connectedWatchNames.joinToString(", ")
+                                    "Connected: $names"
+                                } else {
+                                    "Automatic Wear OS sync active"
+                                }
+                                Text(
+                                    text = statusText,
+                                    fontFamily = Lexend,
+                                    fontSize = 12.sp,
+                                    color = if (watchCount > 0) Color(0xFF10B981) else colors.accentCobalt
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Text(
+                            text = "Your timetable automatically syncs to your Android Wear OS watch whenever you make changes. Use the watch app to view your current class, room, and countdown directly on your wrist.",
+                            fontFamily = Lexend,
+                            fontSize = 12.sp,
+                            color = colors.textSecondary,
+                            lineHeight = 17.sp
+                        )
+
+                        val lastSync = MobileWearableSyncManager.lastSyncTimestamp.longValue
+                        if (lastSync > 0L) {
+                            val timeStr = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date(lastSync))
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "Last synced to watch: $timeStr",
+                                fontFamily = Lexend,
+                                fontSize = 11.sp,
+                                color = colors.textMuted
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+                        Button(
+                            onClick = {
+                                MobileWearableSyncManager.syncAsync(context, repository) { success ->
+                                    if (success) {
+                                        Toast.makeText(context, "Timetable sent to Wear OS Watch!", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, "Timetable ready for watch connection!", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = colors.accentCobalt,
+                                contentColor = Color.White
+                            )
+                        ) {
+                            Text(
+                                text = "Sync to Watch Now",
+                                fontFamily = Lexend,
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
             }
