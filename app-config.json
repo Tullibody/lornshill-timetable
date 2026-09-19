@@ -1,6 +1,6 @@
 {
-  "latestVersionCode": 2,
-  "latestVersionName": "0.6",
+  "latestVersionCode": 3,
+  "latestVersionName": "0.6.1",
   "apkUrl": "https://github.com/Tullibody/lornshill-timetable/releases/latest/download/LornshillTimetable.apk",
   "whatsNew": "• Wear OS Smartwatch Companion App support!\n• Bi-directional timetable sync between watch and phone.\n• Glanceable Wear OS Tile for current and upcoming periods.\n• Performance improvements and bug fixes.",
   "notifications": [
